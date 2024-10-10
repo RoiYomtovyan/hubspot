@@ -114,40 +114,25 @@ export class APIcall {
     }
 
 
-    async verifyContactProperties(filePath: string, createdContactProperties: any): Promise<void> {
-        
+    async verifyContactProperties(filePath: string, createdContactProperties: any, propertiesToCompare: string[]): Promise<void> {
+        // Read and parse the JSON data from the file
         const jsonData = await fs.readFile(filePath, 'utf-8');
         const dataFromFile = JSON.parse(jsonData);
-        const email1 = dataFromFile.properties?.email;
-        const firstName1 = dataFromFile.properties?.firstname;
-        const lastName1 = dataFromFile.properties?.lastname;
+        
+        // Iterate over the array of properties to compare
+        for (const property of propertiesToCompare) {
+            const valueFromFile = dataFromFile.properties?.[property];
+            const valueFromResponse = createdContactProperties?.[property];
     
-        // const dataFromResponse = JSON.parse(createdContactProperties);
-        const email2 = createdContactProperties.email;
-        const firstName2 = createdContactProperties.firstname;
-        const lastName2 = createdContactProperties.lastname;
-    
-        // Compare email
-        if (email1 === email2) {
-            console.log("Email matches: ", email1);
-        } else {
-            throw new Error(`Email mismatch: json1 has ${email1}, json2 has ${email2}`);
-        }
-    
-        // Compare first name
-        if (firstName1 === firstName2) {
-            console.log("First name matches: ", firstName1);
-        } else {
-            throw new Error(`First name mismatch: json1 has ${firstName1}, json2 has ${firstName2}`);
-        }
-    
-        // Compare last name
-        if (lastName1 === lastName2) {
-            console.log("Last name matches: ", lastName1);
-        } else {
-            throw new Error(`Last name mismatch: json1 has ${lastName1}, json2 has ${lastName2}`);
+            // Compare the values for the current property
+            if (valueFromFile === valueFromResponse) {
+                console.log(`${property} matches: `, valueFromFile);
+            } else {
+                throw new Error(`${property} mismatch: json1 has ${valueFromFile}, json2 has ${valueFromResponse}`);
+            }
         }
     }
+    
 
 
     async deleteContact(contactId:string) : Promise<void> {

@@ -25,7 +25,8 @@ test.describe("contact oprations tests", () => {
 
         console.log('call the GET contact API and verify that the contact was added succssfully with the provided data')
         let contact_properties = await apiCall.getContact(contact_id)
-        await apiCall.verifyContactProperties('test-data/user1_test1.json',contact_properties)
+        let listOfPropertiesToCompare = ["email","firstname","lastname"]
+        await apiCall.verifyContactProperties('test-data/user1_test1.json',contact_properties ,listOfPropertiesToCompare)
 
         console.log('delete the created contact to clear the test data')
         await apiCall.deleteContact(contact_id)
