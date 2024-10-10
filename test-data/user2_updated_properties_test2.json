@@ -1,8 +1,8 @@
 {
     "properties": {
       "email": "example@hubspot.com",
-      "firstname": "Jane",
-      "lastname": "Doe",
+      "firstname": "Jane_new",
+      "lastname": "Doe_new",
       "phone": "(555) 555-5555",
       "company": "HubSpot",
       "website": "hubspot.com",

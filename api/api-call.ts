@@ -155,7 +155,32 @@ export class APIcall {
             throw error;
         }
     }
+    
 
+    async updateContact(contactId:string , filePath:string) : Promise<void> {
+        console.log(`Call for PATCH ${this.API_URL}/crm/v3/objects/contacts/${contactId}`);
+        try {
+            const jsonData = await fs.readFile(filePath, 'utf-8');
+            const data = JSON.parse(jsonData);
+            const response = await axios({
+                method: 'PATCH',
+                data: data,
+                url: `${this.API_URL}/crm/v3/objects/contacts/${contactId}`,
+                headers: {
+                    Accept: 'application/json',
+                    authorization: this.TOKEN 
+                },
+            });
+    
+            if (response.status !== 200) {
+                throw new Error(`Failed with status code ${response.status}`);
+            }
+        
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
     
     
     
