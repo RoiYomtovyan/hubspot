@@ -1,0 +1,11 @@
+{
+    "properties": {
+      "email": "example1@hubspot.com",
+      "firstname": "Jane1",
+      "lastname": "Doe1",
+      "phone": "(555) 555-5555",
+      "company": "HubSpot",
+      "website": "hubspot.com",
+      "lifecyclestage": "marketingqualifiedlead"
+    }
+  }
