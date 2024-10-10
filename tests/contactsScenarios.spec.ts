@@ -12,7 +12,8 @@ test.describe("contact oprations tests", () => {
         apiCall = new APIcall(page)
     })
 
-    test("create new contact and verify the contact was created", async ({ page }) => {
+    test("create new contact and verify the contact data", async ({ page }) => {
+
         console.log('verify the current cotacts amount - verify its value is 2 contacts OOTB')
         await apiCall.countContacts(2)
 
@@ -26,6 +27,11 @@ test.describe("contact oprations tests", () => {
         let contact_properties = await apiCall.getContact(contact_id)
         await apiCall.verifyContactProperties('test-data/user1_test1.json',contact_properties)
 
+        console.log('delete the created contact to clear the test data')
+        await apiCall.deleteContact(contact_id)
+
     })
+
+   
 
 })

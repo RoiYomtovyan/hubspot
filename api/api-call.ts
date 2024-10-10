@@ -148,6 +148,30 @@ export class APIcall {
             throw new Error(`Last name mismatch: json1 has ${lastName1}, json2 has ${lastName2}`);
         }
     }
+
+
+    async deleteContact(contactId:string) : Promise<void> {
+        console.log(`Call for DELETE ${this.API_URL}/crm/v3/objects/contacts/${contactId}`);
+        try {
+            const response = await axios({
+                method: 'DELETE',
+                url: `${this.API_URL}/crm/v3/objects/contacts/${contactId}`,
+                headers: {
+                    authorization: this.TOKEN 
+                },
+            });
+    
+            if (response.status !== 204) {
+                throw new Error(`Failed with status code ${response.status}`);
+            }
+        
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    
     
     
     
