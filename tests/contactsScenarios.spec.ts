@@ -79,7 +79,7 @@ test.describe("contact oprations tests", () => {
 
     })
 
-    test.afterAll (async ({ page }) => { 
+    test.afterAll (async ({}) => { 
         console.log('make sure to clean the test data in case a test was failed')
         for (let contact_id of createdContactsId ) {
             await apiCall.deleteContact(contact_id)
