@@ -46,6 +46,21 @@ export class APIcall {
         }
     }
 
+    async createDuplicatedContact(filePath: string) { 
+
+        try {
+            await this.createNewContact(filePath)
+        } catch (error) {
+           if (error.response.status == 409) {
+            return error.response.status
+
+           } else {
+            console.error(error);
+            throw error;
+           }
+        }
+    }
+
 
     async countContacts(expectedCountResult:number) {
         console.log(`Call for ${this.API_URL}/crm/v3/objects/contacts`);
