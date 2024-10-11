@@ -47,12 +47,18 @@ export class APIcall {
     }
 
     async createDuplicatedContact(filePath: string) { 
+        let callResponse
 
         try {
             await this.createNewContact(filePath)
         } catch (error) {
            if (error.response.status == 409) {
-            return error.response.status
+            callResponse= {
+                status : error.response.status,
+                message: error.response.data.message
+            }
+            console.debug('error.data.message' , error.response.data.message)
+            return callResponse
 
            } else {
             console.error(error);

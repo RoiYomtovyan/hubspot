@@ -44,9 +44,13 @@ test.describe("contact oprations tests", () => {
         createdContactsId.push(contact); // place the contact_id in arrey to be deleted at the end of the run in case the test is failed
 
         console.log('Try to create new contact with same primery key "email"')
-        
-        let  contact_2_callStatus = await apiCall.createDuplicatedContact('test-data/user2_test2.json');
-        await expect (contact_2_callStatus).toBe(409)
+        let  contact_2 = await apiCall.createDuplicatedContact('test-data/user2_test2.json');
+
+        console.log('verify the call starus is 409 (conflict)')
+        await expect (contact_2.status).toBe(409)
+
+        console.log('verify the call response message includes the duplicated contact id')
+        await expect (contact_2.message).toBe(`Contact already exists. Existing ID: ${contact}`)
 
         console.log('delete the created contact to clear the test data')
         await apiCall.deleteContact(contact)
