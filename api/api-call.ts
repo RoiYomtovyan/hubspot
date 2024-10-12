@@ -4,7 +4,7 @@ import * as fs from 'fs/promises';
 
 
 // Class for internal API calls
-export class APIcall {
+export class ContactApiCall {
 
     API_URL : string
     TOKEN :string
@@ -200,6 +200,27 @@ export class APIcall {
         } catch (error) {
             console.error(error);
             throw error;
+        }
+    }
+
+
+    async updateNotExitingPropertiesOfContact(contactId:string , filePath:string) { 
+        let callResponse
+        try {
+            await this.updateContact(contactId , filePath)
+        } catch (error) {
+           if (error.response.status == 400) {
+            callResponse= {
+                status : error.response.status,
+                message: error.response.data.message
+            }
+            console.debug('error.data.message' , error.response.data.message)
+            return callResponse
+
+           } else {
+            console.error(error);
+            throw error;
+           }
         }
     }
     
