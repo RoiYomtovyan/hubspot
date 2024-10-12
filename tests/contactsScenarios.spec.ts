@@ -37,13 +37,13 @@ test.describe("contact oprations tests", () => {
 
     })
 
-    test("test_2: verify you can not add contact with same primery key 'email'", async ({ page }) => {
+    test("test_2: verify you can not add contact with same primary key 'email'", async ({ page }) => {
 
         console.log('create new contact')
         const contact = await contactApiCall.createNewContact('test-data/user1_test2.json');
         createdContactsId.push(contact); // place the contact_id in arrey to be deleted at the end of the run in case the test is failed
 
-        console.log('Try to create new contact with same primery key "email"')
+        console.log('Try to create new contact with same primary key "email"')
         let  contact_2 = await contactApiCall.createDuplicatedContact('test-data/user2_test2.json');
 
         console.log('verify the call starus is 409 (conflict)')
@@ -64,10 +64,8 @@ test.describe("contact oprations tests", () => {
         const contact = await contactApiCall.createNewContact('test-data/user3_test3.json');
         createdContactsId.push(contact); // place the contact_id in arrey to be deleted at the end of the run in case the test is failed
 
-
         console.log('update contact properties')
         await contactApiCall.updateContact(contact,'test-data/user3_updated_properties_test3.json')
-
 
         console.log('call the GET contact API and verify that the contact was added succssfully with the provided data')
         const contact_properties = await contactApiCall.getContact(contact)
@@ -107,7 +105,5 @@ test.describe("contact oprations tests", () => {
 
         }
     })
-
-   
 
 })

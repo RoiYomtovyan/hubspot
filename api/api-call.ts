@@ -6,8 +6,8 @@ import * as fs from 'fs/promises';
 // Class for internal API calls
 export class ContactApiCall {
 
-    API_URL : string
-    TOKEN :string
+    private API_URL : string
+    private TOKEN :string
    
     constructor(public page: Page) {
         this.page = page
@@ -48,7 +48,6 @@ export class ContactApiCall {
 
     async createDuplicatedContact(filePath: string) { 
         let callResponse
-
         try {
             await this.createNewContact(filePath)
         } catch (error) {
@@ -136,16 +135,13 @@ export class ContactApiCall {
 
 
     async verifyContactProperties(filePath: string, createdContactProperties: any, propertiesToCompare: string[]): Promise<void> {
-        // Read and parse the JSON data from the file
         const jsonData = await fs.readFile(filePath, 'utf-8');
         const dataFromFile = JSON.parse(jsonData);
         
-        // Iterate over the array of properties to compare
         for (const property of propertiesToCompare) {
             const valueFromFile = dataFromFile.properties?.[property];
             const valueFromResponse = createdContactProperties?.[property];
     
-            // Compare the values for the current property
             if (valueFromFile === valueFromResponse) {
                 console.log(`${property} matches: `, valueFromFile);
             } else {
