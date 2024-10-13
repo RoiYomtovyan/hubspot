@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import LoginPage from '../pages/LoginPage';
-import { ContactApiCall } from '../api/api-call';
+import { ContactApiCall } from '../api/contactApiCall';
 
 test.describe("contact oprations tests", () => {
 
